@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const validatedData = loginSchema.parse(body);
-    
+
     const supabase = createRouteHandlerClient({ cookies });
 
     const { data, error: signInError } = await supabase.auth.signInWithPassword({
@@ -26,8 +26,8 @@ export async function POST(request: Request) {
       { user: data.user },
       { status: 200 }
     );
-  } catch (error) {
-    if (error.name === 'ZodError') { // Fixed the typo here
+  } catch (error: unknown) {
+    if (error instanceof ZodError) { // Use instanceof for type checking
       return NextResponse.json(
         { error: error.errors },
         { status: 400 }
