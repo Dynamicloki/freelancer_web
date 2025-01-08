@@ -1,3 +1,3 @@
 # freelancer_web
 
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/Dynamicloki/freelancer_web)
+Create this frontend for user who need freelancer for work
