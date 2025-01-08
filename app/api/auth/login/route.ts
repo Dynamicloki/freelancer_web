@@ -26,17 +26,16 @@ export async function POST(request: Request) {
       { user: data.user },
       { status: 200 }
     );
-  } catch (error: unknown) {
-    if (error instanceof ZodError) { // Use instanceof for type checking
-      return NextResponse.json(
-        { error: error.errors },
-        { status: 400 }
-      );
-    }
-
+  } catch (error: any) {
+  if (error && typeof error === 'object' && 'name' in error && error.name === 'ZodError') {
     return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
+      { error: error.errors },
+      { status: 400 }
     );
   }
+
+  return NextResponse.json(
+    { error: 'Internal server error' },
+    { status: 500 }
+  );
 }
