@@ -27,15 +27,15 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (error: any) {
-  if (error && typeof error === 'object' && 'name' in error && error.name === 'ZodError') {
+    if (error && typeof error === 'object' && 'name' in error && error.name === 'ZodError') {
+      return NextResponse.json(
+        { error: error.errors },
+        { status: 400 }
+      );
+    }
     return NextResponse.json(
-      { error: error.errors },
-      { status: 400 }
+      { error: 'Internal server error' },
+      { status: 500 }
     );
   }
-
-  return NextResponse.json(
-    { error: 'Internal server error' },
-    { status: 500 }
-  );
 }
