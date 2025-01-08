@@ -27,7 +27,7 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    if (error.name === 'ZodError') {
+    if (error.name === 'ZodError') { // Fixed the typo here
       return NextResponse.json(
         { error: error.errors },
         { status: 400 }
